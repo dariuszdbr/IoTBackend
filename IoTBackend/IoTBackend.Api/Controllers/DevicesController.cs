@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using IoTBackend.Infrastructure;
-using IoTBackend.Infrastructure.Handlers;
+using IoTBackend.Infrastructure.Features.Devices.Handlers.GetSensorTypeDailyData;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,11 +13,11 @@ namespace IoTBackend.Api.Controllers
     [ApiController]
     public class DevicesController : ControllerBase
     {
-        private readonly IDevicesHandler _devicesHandler;
+        private readonly IMediator _mediator;
 
-        public DevicesController(IDevicesHandler devicesHandler)
+        public DevicesController(IMediator mediator)
         {
-            _devicesHandler = devicesHandler;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -31,7 +32,7 @@ namespace IoTBackend.Api.Controllers
 
             try
             {
-                return Ok(await _devicesHandler.HandleGetDeviceSensorTypeDataDaily(request));
+                return Ok(await _mediator.Send(request));
             }
             catch (Exception e)
             {

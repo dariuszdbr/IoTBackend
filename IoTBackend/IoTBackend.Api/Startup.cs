@@ -1,14 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using IoTBackend.Infrastructure;
-using IoTBackend.Infrastructure.Configurations;
-using IoTBackend.Infrastructure.Converters;
-using IoTBackend.Infrastructure.Handlers;
-using IoTBackend.Infrastructure.Parsers;
-using IoTBackend.Infrastructure.Providers;
-using IoTBackend.Infrastructure.Readers;
+using IoTBackend.Infrastructure.Features.Devices.Handlers.GetSensorTypeDailyData;
+using IoTBackend.Infrastructure.Features.Devices.Interfaces;
+using IoTBackend.Infrastructure.Features.Devices.Parsers;
+using IoTBackend.Infrastructure.Features.Devices.Providers;
+using IoTBackend.Infrastructure.Features.Devices.Readers;
+using IoTBackend.Infrastructure.Shared.Configurations;
+using IoTBackend.Infrastructure.Shared.Converters;
+using IoTBackend.Infrastructure.Shared.Providers;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,7 +40,9 @@ namespace IoTBackend.Api
             services.Configure<BlobConfiguration>(Configuration.GetSection("BlobConfiguration"));
 
 
+            // Todo cleanup registered services add singletons, scoped etc
 
+            services.AddTransient<ISensorTypeConverter, SensorTypeConverter>();
             services.AddTransient<IZipArchiveProvider, ZipArchiveProvider>();
             services.AddTransient<IStreamReaderProvider, StreamReaderProvider>();
             services.AddTransient<IStreamParser, StreamParser>();
@@ -51,8 +57,9 @@ namespace IoTBackend.Api
 
             services.AddTransient<IBlobReader, BlobFileReader>();
             services.AddTransient<IBlobReader, BlobArchiveReader>();
-            services.AddTransient<IDevicesHandler, DevicesHandler>();
 
+            services.AddMediatR(Assembly.GetExecutingAssembly(), typeof(GetSensorTypeDailyDataRequestHandler).Assembly);
+           
             services.AddControllers();
             services.AddApiVersioning();
         }
