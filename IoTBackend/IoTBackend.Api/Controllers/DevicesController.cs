@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Net;
 using System.Threading.Tasks;
-using IoTBackend.Core.Models;
 using IoTBackend.Infrastructure;
+using IoTBackend.Infrastructure.Handlers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

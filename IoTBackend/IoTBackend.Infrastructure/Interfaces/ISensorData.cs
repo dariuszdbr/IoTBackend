@@ -1,7 +1,7 @@
 ﻿using System;
-using IoTBackend.Core.Models;
+using IoTBackend.Infrastructure.Models;
 
-namespace IoTBackend.Core.Interfaces
+namespace IoTBackend.Infrastructure.Interfaces
 {
     public interface ISensorDataPoint
     {

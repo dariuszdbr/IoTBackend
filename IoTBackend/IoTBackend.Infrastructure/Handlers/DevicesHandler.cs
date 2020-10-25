@@ -1,9 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using IoTBackend.Core.Interfaces;
+using IoTBackend.Infrastructure.Converters;
+using IoTBackend.Infrastructure.Interfaces;
+using IoTBackend.Infrastructure.Providers;
+using IoTBackend.Infrastructure.Readers;
 
-namespace IoTBackend.Infrastructure
+namespace IoTBackend.Infrastructure.Handlers
 {
     public interface IDevicesHandler
     {

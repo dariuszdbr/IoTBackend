@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.IO.Compression;
 
-namespace IoTBackend.Infrastructure
+namespace IoTBackend.Infrastructure.Providers
 {
     public interface IZipArchiveProvider
     {

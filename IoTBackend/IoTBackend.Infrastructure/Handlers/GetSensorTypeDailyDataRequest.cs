@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IoTBackend.Infrastructure
+namespace IoTBackend.Infrastructure.Handlers
 {
     public class GetSensorTypeDailyDataRequest
     {

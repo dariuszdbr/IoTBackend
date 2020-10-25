@@ -1,8 +1,8 @@
 ﻿using Azure.Storage.Blobs;
-using IoTBackend.Core.Configurations;
+using IoTBackend.Infrastructure.Configurations;
 using Microsoft.Extensions.Options;
 
-namespace IoTBackend.Infrastructure
+namespace IoTBackend.Infrastructure.Providers
 {
     public interface IBlobClientProvider
     {

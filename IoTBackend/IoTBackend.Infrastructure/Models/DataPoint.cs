@@ -1,7 +1,7 @@
 ﻿using System;
-using IoTBackend.Core.Interfaces;
+using IoTBackend.Infrastructure.Interfaces;
 
-namespace IoTBackend.Core.Models
+namespace IoTBackend.Infrastructure.Models
 {
     public class DataPoint
     {

@@ -1,7 +1,7 @@
 ﻿using System;
-using IoTBackend.Core.Models;
+using IoTBackend.Infrastructure.Models;
 
-namespace IoTBackend.Infrastructure
+namespace IoTBackend.Infrastructure.Converters
 {
     public interface ISensorTypeConverter
     {

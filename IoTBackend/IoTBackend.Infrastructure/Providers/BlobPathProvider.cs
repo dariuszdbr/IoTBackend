@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
-using IoTBackend.Core.Models;
+using IoTBackend.Infrastructure.Models;
 
-namespace IoTBackend.Infrastructure
+namespace IoTBackend.Infrastructure.Providers
 {
     public interface IBlobPathProvider
     {

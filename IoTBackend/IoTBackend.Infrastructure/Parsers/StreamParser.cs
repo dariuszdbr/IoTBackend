@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using IoTBackend.Core.Interfaces;
+using IoTBackend.Infrastructure.Interfaces;
+using IoTBackend.Infrastructure.Providers;
 
-namespace IoTBackend.Infrastructure
+namespace IoTBackend.Infrastructure.Parsers
 {
     public interface IStreamParser
     {

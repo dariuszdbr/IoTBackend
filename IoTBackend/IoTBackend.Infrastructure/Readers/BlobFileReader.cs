@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using IoTBackend.Core.Interfaces;
+using IoTBackend.Infrastructure.Interfaces;
+using IoTBackend.Infrastructure.Parsers;
+using IoTBackend.Infrastructure.Providers;
 
-namespace IoTBackend.Infrastructure
+namespace IoTBackend.Infrastructure.Readers
 {
     public class BlobFileReader : IBlobReader
     {

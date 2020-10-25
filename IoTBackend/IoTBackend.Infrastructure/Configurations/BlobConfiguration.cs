@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace IoTBackend.Core.Configurations
+﻿namespace IoTBackend.Infrastructure.Configurations
 {
     public class BlobConfiguration
     {

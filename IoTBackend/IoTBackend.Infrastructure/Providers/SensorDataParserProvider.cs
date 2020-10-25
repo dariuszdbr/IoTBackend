@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using IoTBackend.Core.Models;
+using IoTBackend.Infrastructure.Models;
+using IoTBackend.Infrastructure.Parsers;
 
-namespace IoTBackend.Infrastructure
+namespace IoTBackend.Infrastructure.Providers
 {
     public interface ISensorDataParserProvider
     {

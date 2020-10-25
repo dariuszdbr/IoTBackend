@@ -1,7 +1,7 @@
-﻿using IoTBackend.Core.Interfaces;
-using IoTBackend.Core.Models;
+﻿using IoTBackend.Infrastructure.Interfaces;
+using IoTBackend.Infrastructure.Models;
 
-namespace IoTBackend.Infrastructure
+namespace IoTBackend.Infrastructure.Parsers
 {
     public interface ISensorDataParser
     {
