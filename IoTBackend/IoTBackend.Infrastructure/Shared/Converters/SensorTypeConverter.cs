@@ -1,4 +1,5 @@
 ﻿using System;
+using IoTBackend.Infrastructure.Features.Devices.Exceptions;
 using IoTBackend.Infrastructure.Features.Devices.Models;
 
 namespace IoTBackend.Infrastructure.Shared.Converters
@@ -17,7 +18,7 @@ namespace IoTBackend.Infrastructure.Shared.Converters
                 return type;
             }
 
-            throw new Exception("not supported type");
+            throw new NotSupportedSensorTypeException(sensorType);
         }
     }
 }

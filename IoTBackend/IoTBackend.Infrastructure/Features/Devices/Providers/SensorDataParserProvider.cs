@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using IoTBackend.Infrastructure.Features.Devices.Interfaces;
 using IoTBackend.Infrastructure.Features.Devices.Models;
 using IoTBackend.Infrastructure.Features.Devices.Parsers;
 
