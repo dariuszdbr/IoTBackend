@@ -1,6 +1,6 @@
 ﻿using System;
-using IoTBackend.Infrastructure.Features.Devices.Exceptions;
-using IoTBackend.Infrastructure.Features.Devices.Models;
+using IoTBackend.Infrastructure.Features.Devices.Shared.Exceptions;
+using IoTBackend.Infrastructure.Shared.Models;
 
 namespace IoTBackend.Infrastructure.Shared.Converters
 {

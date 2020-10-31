@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using IoTBackend.Infrastructure;
-using IoTBackend.Infrastructure.Features.Devices.Handlers.GetSensorTypeDailyData;
+using IoTBackend.Infrastructure.Features.Devices.GetDeviceDailyData;
+using IoTBackend.Infrastructure.Features.Devices.GetSensorTypeDailyData;
 using IoTBackend.Infrastructure.Shared.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -23,7 +23,7 @@ namespace IoTBackend.Api.Controllers
 
         [HttpGet]
         [Route("{deviceId}/data/{date}/{sensorType}")]
-        public async Task<IActionResult> GetSensorTypeDailyData([FromRoute] GetSensorTypeDailyDataRequest request)
+        public async Task<IActionResult> GetSensorTypeDailyData([FromRoute] GetSensorDailyDataRequest request)
         {
             if (request == null)
                 return BadRequest();
@@ -42,7 +42,7 @@ namespace IoTBackend.Api.Controllers
             {
                 return StatusCode(e.StatusCode, new { message = e.Message } );
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new { message = "error occurred" });
             }
@@ -50,9 +50,26 @@ namespace IoTBackend.Api.Controllers
 
         [HttpGet]
         [Route("{deviceId}/data/{date}")]
-        public IActionResult GetDailyData(string deviceId, DateTime date)
+        public async Task<IActionResult> GetDeviceDailyData([FromRoute] GetDeviceDailyDataRequest request)
         {
-            return Ok();
+            if (request == null)
+                return BadRequest();
+
+            if (string.IsNullOrWhiteSpace(request.DeviceId))
+                return BadRequest();
+
+            try
+            {
+                return Ok(await _mediator.Send(request));
+            }
+            catch (DomainException e)
+            {
+                return StatusCode(e.StatusCode, new { message = e.Message });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = "error occurred" });
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Azure.Storage.Blobs;
-using IoTBackend.Infrastructure.Shared.Configurations;
+using IoTBackend.Infrastructure.Shared.Models.Configurations;
 using Microsoft.Extensions.Options;
 
 namespace IoTBackend.Infrastructure.Shared.Providers

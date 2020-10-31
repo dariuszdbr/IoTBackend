@@ -1,26 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
 using System.Reflection;
-using System.Threading.Tasks;
-using IoTBackend.Infrastructure;
-using IoTBackend.Infrastructure.Features.Devices.Handlers.GetSensorTypeDailyData;
-using IoTBackend.Infrastructure.Features.Devices.Interfaces;
-using IoTBackend.Infrastructure.Features.Devices.Parsers;
-using IoTBackend.Infrastructure.Features.Devices.Providers;
-using IoTBackend.Infrastructure.Features.Devices.Readers;
-using IoTBackend.Infrastructure.Shared.Configurations;
+using IoTBackend.Infrastructure.Features.Devices.GetDeviceDailyData;
+using IoTBackend.Infrastructure.Features.Devices.GetSensorTypeDailyData;
+using IoTBackend.Infrastructure.Features.Devices.Shared.Parsers;
+using IoTBackend.Infrastructure.Features.Devices.Shared.Providers;
+using IoTBackend.Infrastructure.Features.Devices.Shared.Readers;
 using IoTBackend.Infrastructure.Shared.Converters;
+using IoTBackend.Infrastructure.Shared.Models.Configurations;
 using IoTBackend.Infrastructure.Shared.Providers;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace IoTBackend.Api
 {
@@ -37,7 +30,7 @@ namespace IoTBackend.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOptions();
-            services.Configure<BlobConfiguration>(Configuration.GetSection("BlobConfiguration"));
+            services.Configure<BlobConfiguration>(Configuration.GetSection(nameof(BlobConfiguration)));
 
 
             // Todo cleanup registered services add singletons, scoped etc
@@ -50,18 +43,29 @@ namespace IoTBackend.Api
             services.AddTransient<IBlobClientProvider, BlobClientProvider>();
             services.AddTransient<ISensorTypeConverter, SensorTypeConverter>();
 
-            services.AddTransient<ISensorDataParser, HumidityDataParser>();
+            services.AddTransient<ISensorDataParser, HumiditySensorDailyDataPointParser>();
             services.AddTransient<ISensorDataParser, TemperatureDataParser>();
             services.AddTransient<ISensorDataParser, RainfallDataParser>();
             services.AddTransient<ISensorDataParserProvider, SensorDataParserProvider>();
 
-            services.AddTransient<IBlobReader, BlobFileReader>();
-            services.AddTransient<IBlobReader, BlobArchiveReader>();
+            services.AddTransient<BlobFileReader>();
+            services.AddTransient<BlobArchiveReader>();
+            services.AddTransient<IBlobReader>(service => new BlobReader(new []
+            {
+                (IBlobReader)service.GetService<BlobFileReader>(),
+                (IBlobReader)service.GetService<BlobArchiveReader>()
+            }));
 
-            services.AddMediatR(Assembly.GetExecutingAssembly(), typeof(GetSensorTypeDailyDataRequestHandler).Assembly);
+            services.AddMediatR(Assembly.GetExecutingAssembly(),
+                                typeof(GetSensorDailyDataRequestHandler).Assembly,
+                                typeof(GetDeviceDailyDataRequestHandler).Assembly);
            
             services.AddControllers();
             services.AddApiVersioning();
+
+            var cultureInfo = new CultureInfo(Configuration.GetSection("CultureConfiguration").Value);
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
