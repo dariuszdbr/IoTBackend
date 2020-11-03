@@ -1,6 +1,6 @@
 ﻿using System.Net;
-using IoTBackend.Infrastructure.Shared.Exceptions;
-using IoTBackend.Infrastructure.Shared.Models;
+using IoTBackend.Infrastructure.Core.Exceptions;
+using IoTBackend.Infrastructure.Core.Models;
 
 namespace IoTBackend.Infrastructure.Features.Devices.Shared.Exceptions
 {

@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IoTBackend.Api", "IoTBackend.Api\IoTBackend.Api.csproj", "{64FD51DA-82C3-4FEB-B8FD-23084A07621E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTBackend.Infrastructure", "IoTBackend.Infrastructure\IoTBackend.Infrastructure.csproj", "{68804098-84D1-42EE-8442-6409788C4E44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IoTBackend.Infrastructure", "IoTBackend.Infrastructure\IoTBackend.Infrastructure.csproj", "{68804098-84D1-42EE-8442-6409788C4E44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTBackend.Infrastructure.Tests", "Tests\IoTBackend.Infrastructure.Tests\IoTBackend.Infrastructure.Tests.csproj", "{49144253-F52F-4262-939F-06563305ACF7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{68804098-84D1-42EE-8442-6409788C4E44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68804098-84D1-42EE-8442-6409788C4E44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68804098-84D1-42EE-8442-6409788C4E44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49144253-F52F-4262-939F-06563305ACF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49144253-F52F-4262-939F-06563305ACF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49144253-F52F-4262-939F-06563305ACF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49144253-F52F-4262-939F-06563305ACF7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

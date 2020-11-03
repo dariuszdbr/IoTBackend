@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace IoTBackend.Infrastructure.Shared.Providers
+namespace IoTBackend.Infrastructure.Core.Providers
 {
     public interface IStreamReaderProvider
     {

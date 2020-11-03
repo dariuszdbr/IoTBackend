@@ -1,10 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using IoTBackend.Infrastructure.Core.Models;
 using IoTBackend.Infrastructure.Features.Devices.Shared.Exceptions;
 using IoTBackend.Infrastructure.Features.Devices.Shared.Providers;
 using IoTBackend.Infrastructure.Features.Devices.Shared.Readers;
-using IoTBackend.Infrastructure.Shared.Models;
 using MediatR;
 
 namespace IoTBackend.Infrastructure.Features.Devices.GetDeviceDailyData
@@ -16,8 +17,8 @@ namespace IoTBackend.Infrastructure.Features.Devices.GetDeviceDailyData
 
         public GetDeviceDailyDataRequestHandler(IBlobReader blobReader, ISensorDataParserProvider sensorDataParserProvider)
         {
-            _blobReader = blobReader;
-            _sensorDataParserProvider = sensorDataParserProvider;
+            _blobReader = blobReader ?? throw new ArgumentNullException(nameof(blobReader));
+            _sensorDataParserProvider = sensorDataParserProvider ?? throw new ArgumentNullException(nameof(sensorDataParserProvider));
         }
 
         public async Task<GetDeviceDailyDataResponse> Handle(GetDeviceDailyDataRequest request, CancellationToken cancellationToken)
@@ -32,13 +33,11 @@ namespace IoTBackend.Infrastructure.Features.Devices.GetDeviceDailyData
             var humidities = await humidityTask;
             var rainfalls = await rainfallTask;
 
-            if (temperatures == null) throw new DeviceDataNotFoundException();
-            if (humidities == null) throw new DeviceDataNotFoundException();
-            if (rainfalls == null) throw new DeviceDataNotFoundException();
+            if (!temperatures.PathExist && !humidities.PathExist && !rainfalls.PathExist) throw new DeviceDataNotFoundException();
 
-            var deviceDataPoints = from temperature in temperatures
-                join humidity in humidities on temperature.Date equals humidity.Date
-                join rainfall in rainfalls on humidity.Date equals rainfall.Date
+            var deviceDataPoints = from temperature in temperatures.DataPoints
+                 join humidity in humidities.DataPoints on temperature.Date equals humidity.Date
+                 join rainfall in rainfalls.DataPoints on humidity.Date equals rainfall.Date
                 select new DeviceDailyDataPoint(humidity.Date, temperature.Value, humidity.Value, rainfall.Value);
             
             return new GetDeviceDailyDataResponse()

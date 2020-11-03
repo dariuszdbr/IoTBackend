@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using IoTBackend.Infrastructure.Core.Providers;
 using IoTBackend.Infrastructure.Features.Devices.GetSensorTypeDailyData;
 using IoTBackend.Infrastructure.Features.Devices.Shared.Parsers;
 using IoTBackend.Infrastructure.Features.Devices.Shared.Providers;
-using IoTBackend.Infrastructure.Shared.Providers;
 
 namespace IoTBackend.Infrastructure.Features.Devices.Shared.Readers
 {
@@ -16,20 +16,20 @@ namespace IoTBackend.Infrastructure.Features.Devices.Shared.Readers
 
         public BlobFileReader(IBlobClientProvider blobClientProvider, IBlobPathProvider blobFilePathProvider, IStreamParser streamParser)
         {
-            _blobClientProvider = blobClientProvider;
-            _streamParser = streamParser;
-            _blobFilePathProvider = blobFilePathProvider;
+            _blobClientProvider = blobClientProvider ?? throw new ArgumentNullException(nameof(blobClientProvider));
+            _streamParser = streamParser ?? throw new ArgumentNullException(nameof(streamParser));
+            _blobFilePathProvider = blobFilePathProvider ?? throw new ArgumentNullException(nameof(blobFilePathProvider));
         }
 
-        public async Task<List<SensorDailyDataPoint>> ReadAsync(string deviceId, DateTime dateTime, ISensorDataParser parser)
+        public async Task<BlobReaderResult> ReadAsync(string deviceId, DateTime dateTime, ISensorDataParser parser)
         {
             var filePath = _blobFilePathProvider.GetFilePath(deviceId, dateTime, parser.SensorType);
             var client = _blobClientProvider.GetClient(filePath);
 
-            if (!await client.ExistsAsync()) return new List<SensorDailyDataPoint>();
+            if (!await client.ExistsAsync()) return BlobReaderResult.CreatePathNotExistResult();
 
             using var stream = await client.OpenReadAsync();
-            return await _streamParser.ParseStream(parser, stream);
+            return BlobReaderResult.CreateResult(await _streamParser.ParseStreamAsync(parser, stream));
         }
     }
 }

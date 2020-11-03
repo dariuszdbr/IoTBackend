@@ -1,8 +1,8 @@
 ﻿using System;
+using IoTBackend.Infrastructure.Core.Models;
 using IoTBackend.Infrastructure.Features.Devices.Shared.Exceptions;
-using IoTBackend.Infrastructure.Shared.Models;
 
-namespace IoTBackend.Infrastructure.Shared.Converters
+namespace IoTBackend.Infrastructure.Core.Converters
 {
     public interface ISensorTypeConverter
     {

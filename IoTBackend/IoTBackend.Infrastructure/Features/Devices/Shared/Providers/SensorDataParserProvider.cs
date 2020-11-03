@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using IoTBackend.Infrastructure.Core.Models;
 using IoTBackend.Infrastructure.Features.Devices.Shared.Exceptions;
 using IoTBackend.Infrastructure.Features.Devices.Shared.Parsers;
-using IoTBackend.Infrastructure.Shared.Models;
 
 namespace IoTBackend.Infrastructure.Features.Devices.Shared.Providers
 {

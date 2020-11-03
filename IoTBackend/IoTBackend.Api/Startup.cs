@@ -1,13 +1,13 @@
 using System.Globalization;
 using System.Reflection;
+using IoTBackend.Infrastructure.Core.Converters;
+using IoTBackend.Infrastructure.Core.Models.Configurations;
+using IoTBackend.Infrastructure.Core.Providers;
 using IoTBackend.Infrastructure.Features.Devices.GetDeviceDailyData;
 using IoTBackend.Infrastructure.Features.Devices.GetSensorTypeDailyData;
 using IoTBackend.Infrastructure.Features.Devices.Shared.Parsers;
 using IoTBackend.Infrastructure.Features.Devices.Shared.Providers;
 using IoTBackend.Infrastructure.Features.Devices.Shared.Readers;
-using IoTBackend.Infrastructure.Shared.Converters;
-using IoTBackend.Infrastructure.Shared.Models.Configurations;
-using IoTBackend.Infrastructure.Shared.Providers;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -44,8 +44,8 @@ namespace IoTBackend.Api
             services.AddTransient<ISensorTypeConverter, SensorTypeConverter>();
 
             services.AddTransient<ISensorDataParser, HumiditySensorDailyDataPointParser>();
-            services.AddTransient<ISensorDataParser, TemperatureDataParser>();
-            services.AddTransient<ISensorDataParser, RainfallDataParser>();
+            services.AddTransient<ISensorDataParser, TemperatureSensorDailyDataPointParser>();
+            services.AddTransient<ISensorDataParser, RainfallSensorDailyDataPointParser>();
             services.AddTransient<ISensorDataParserProvider, SensorDataParserProvider>();
 
             services.AddTransient<BlobFileReader>();

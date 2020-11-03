@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Globalization;
+using IoTBackend.Infrastructure.Core.Models;
 using IoTBackend.Infrastructure.Features.Devices.GetSensorTypeDailyData;
-using IoTBackend.Infrastructure.Shared.Models;
 
 namespace IoTBackend.Infrastructure.Features.Devices.Shared.Parsers
 {
     public class HumiditySensorDailyDataPointParser : ISensorDataParser
     {
         public SensorType SensorType { get; } = SensorType.Humidity;
-        public virtual SensorDailyDataPoint Parse(string line)
+        public SensorDailyDataPoint Parse(string line)
         {
             if (string.IsNullOrWhiteSpace(line)) throw new ArgumentException("Value cannot be null, empty or whitespace.", nameof(line));
 

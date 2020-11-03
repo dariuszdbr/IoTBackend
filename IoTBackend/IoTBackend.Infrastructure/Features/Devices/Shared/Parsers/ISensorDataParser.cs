@@ -1,5 +1,5 @@
-﻿using IoTBackend.Infrastructure.Features.Devices.GetSensorTypeDailyData;
-using IoTBackend.Infrastructure.Shared.Models;
+﻿using IoTBackend.Infrastructure.Core.Models;
+using IoTBackend.Infrastructure.Features.Devices.GetSensorTypeDailyData;
 
 namespace IoTBackend.Infrastructure.Features.Devices.Shared.Parsers
 {

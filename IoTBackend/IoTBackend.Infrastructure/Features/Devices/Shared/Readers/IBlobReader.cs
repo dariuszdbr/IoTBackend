@@ -8,6 +8,6 @@ namespace IoTBackend.Infrastructure.Features.Devices.Shared.Readers
 {
     public interface IBlobReader
     {
-        Task<List<SensorDailyDataPoint>> ReadAsync(string deviceId, DateTime dateTime, ISensorDataParser parser);
+        Task<BlobReaderResult> ReadAsync(string deviceId, DateTime dateTime, ISensorDataParser parser);
     }
 }

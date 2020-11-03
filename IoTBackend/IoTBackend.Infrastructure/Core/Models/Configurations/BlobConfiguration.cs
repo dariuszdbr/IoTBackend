@@ -1,4 +1,4 @@
-﻿namespace IoTBackend.Infrastructure.Shared.Models.Configurations
+﻿namespace IoTBackend.Infrastructure.Core.Models.Configurations
 {
     public class BlobConfiguration
     {

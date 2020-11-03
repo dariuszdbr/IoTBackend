@@ -13,17 +13,17 @@ namespace IoTBackend.Infrastructure.Features.Devices.Shared.Readers
 
         public BlobReader(IEnumerable<IBlobReader> blobReaders)
         {
-            _blobReaders = blobReaders;
+            _blobReaders = blobReaders ?? throw new ArgumentNullException(nameof(blobReaders));
         }
 
-        public async Task<List<SensorDailyDataPoint>> ReadAsync(string deviceId, DateTime dateTime, ISensorDataParser parser)
+        public async Task<BlobReaderResult> ReadAsync(string deviceId, DateTime dateTime, ISensorDataParser parser)
         {
-            var result = new List<SensorDailyDataPoint>();
+            var result = BlobReaderResult.CreatePathNotExistResult();
             foreach (var reader in _blobReaders)
             {
                 result = await reader.ReadAsync(deviceId, dateTime, parser);
 
-                if (result.Any()) break;
+                if (result.PathExist) break;
                 // There is a duplicate file 2019-01-10.csv in the historical.zip and outside.
                 // If that's not a bug, should the results be merged?
             }

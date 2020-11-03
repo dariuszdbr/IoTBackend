@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using IoTBackend.Infrastructure.Core.Exceptions;
 using IoTBackend.Infrastructure.Features.Devices.GetDeviceDailyData;
 using IoTBackend.Infrastructure.Features.Devices.GetSensorTypeDailyData;
-using IoTBackend.Infrastructure.Shared.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

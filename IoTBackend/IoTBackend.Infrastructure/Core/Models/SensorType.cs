@@ -1,4 +1,4 @@
-﻿namespace IoTBackend.Infrastructure.Shared.Models
+﻿namespace IoTBackend.Infrastructure.Core.Models
 {
     public enum SensorType
     {

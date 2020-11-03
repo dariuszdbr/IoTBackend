@@ -1,5 +1,5 @@
 ﻿using System.Net;
-using IoTBackend.Infrastructure.Shared.Exceptions;
+using IoTBackend.Infrastructure.Core.Exceptions;
 
 namespace IoTBackend.Infrastructure.Features.Devices.Shared.Exceptions
 {
