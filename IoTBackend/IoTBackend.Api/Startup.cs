@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
 using IoTBackend.Infrastructure.Core.Converters;
@@ -17,6 +18,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace IoTBackend.Api
 {
+    [ExcludeFromCodeCoverage]
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -31,23 +33,17 @@ namespace IoTBackend.Api
         {
             services.AddOptions();
             services.Configure<BlobConfiguration>(Configuration.GetSection(nameof(BlobConfiguration)));
-
-
-            // Todo cleanup registered services add singletons, scoped etc
-
             services.AddTransient<ISensorTypeConverter, SensorTypeConverter>();
             services.AddTransient<IZipArchiveProvider, ZipArchiveProvider>();
             services.AddTransient<IStreamReaderProvider, StreamReaderProvider>();
             services.AddTransient<IStreamParser, StreamParser>();
             services.AddTransient<IBlobPathProvider, BlobPathProvider>();
-            services.AddTransient<IBlobClientProvider, BlobClientProvider>();
+            services.AddSingleton<IBlobClientProvider, BlobClientProvider>();
             services.AddTransient<ISensorTypeConverter, SensorTypeConverter>();
-
             services.AddTransient<ISensorDataParser, HumiditySensorDailyDataPointParser>();
             services.AddTransient<ISensorDataParser, TemperatureSensorDailyDataPointParser>();
             services.AddTransient<ISensorDataParser, RainfallSensorDailyDataPointParser>();
             services.AddTransient<ISensorDataParserProvider, SensorDataParserProvider>();
-
             services.AddTransient<BlobFileReader>();
             services.AddTransient<BlobArchiveReader>();
             services.AddTransient<IBlobReader>(service => new BlobReader(new []
@@ -55,11 +51,10 @@ namespace IoTBackend.Api
                 (IBlobReader)service.GetService<BlobFileReader>(),
                 (IBlobReader)service.GetService<BlobArchiveReader>()
             }));
-
-            services.AddMediatR(Assembly.GetExecutingAssembly(),
-                                typeof(GetSensorDailyDataRequestHandler).Assembly,
-                                typeof(GetDeviceDailyDataRequestHandler).Assembly);
-           
+            services.AddMediatR(
+                Assembly.GetExecutingAssembly(), 
+                typeof(GetSensorDailyDataRequestHandler).Assembly, 
+                typeof(GetDeviceDailyDataRequestHandler).Assembly);
             services.AddControllers();
             services.AddApiVersioning();
 
