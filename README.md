@@ -4,7 +4,7 @@ This repo contains a sample application written in C# that exposes API to commun
 
 Storage contains CSV files that are stored daily within `{short-date}.csv` file name. There is also a `historical.zip` file where data is archived.
 
-Currently there are three types of sensors:
+There are three types of sensors:
 - Temperature
 - Humidity
 - Rainfall
