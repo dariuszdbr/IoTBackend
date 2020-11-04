@@ -40,7 +40,7 @@ GET: /api/v1/devices/dockan/data/2019-01-11/temperature
 ### Collect all data points for one unit and one day.
 
 ```
-GET: /api/v1/devices/{deviceId}/data/{date-short-string}
+GET: /api/v1/devices/{deviceId}/data/{short-date}
 
 example:
 GET: /api/v1/devices/dockan/data/2019-01-11
